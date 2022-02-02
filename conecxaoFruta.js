@@ -11,5 +11,7 @@ constructor(corpoA,corpoB){
  })
  World.add(engine.world,this.ligacao);
 }
-
+rasgarCorda(){
+  World.remove(engine.world,this.ligacao);
+    }
 }

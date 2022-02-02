@@ -15,6 +15,18 @@ var cordaFruta;
 var fruta;
 var ligacaoFC;
 
+var casa, melancia, coelhinho;
+
+var coelho; 
+
+var botaoRasgar;
+
+function preload(){
+  casa = loadImage("background.png");
+  melancia = loadImage("melon.png");
+  coelhinho = loadImage("Rabbit-01.png");
+}
+
 function setup() 
 {
   createCanvas(500,700);
@@ -23,6 +35,7 @@ function setup()
  
   rectMode(CENTER);
   ellipseMode(RADIUS);
+  imageMode(CENTER);
   textSize(50)
 
   chao = new Chao(200,690,600,20);
@@ -31,6 +44,14 @@ function setup()
   }
   fruta = Bodies.circle(300,300,15,opcao);
   cordaFruta = new Rope(6,{x:245,y:30});
+
+  coelho = createSprite(250,650,100,100);
+  coelho.addImage(coelhinho);
+  coelho.scale = 0.2;
+  botaoRasgar = createImg("cut_button.png");
+  botaoRasgar.position(220,30);
+  botaoRasgar.size(50,50);
+  botaoRasgar.mouseClicked(cair);
 
 
 
@@ -41,13 +62,20 @@ function setup()
 function draw() 
 {
   background(51);
+  image(casa, width/2, height/2, 500, 700);
+
   Engine.update(engine);
    
   chao.mostrar();
   cordaFruta.show();
+  image(melancia, fruta.position.x, fruta.position.y, 60, 60);
 
-
-  ellipse(fruta.position.x,fruta.position.y,15,15);
+drawSprites();
+}
+function cair(){
+  ligacaoFC.rasgarCorda();
+  ligacaoFC = null;
+ cordaFruta.break();
 }
 
 
